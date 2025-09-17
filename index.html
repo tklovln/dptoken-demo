@@ -1,0 +1,273 @@
+<html>
+
+<head>
+	<title>Exploring SSM in Music Generation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta name="theme-color" content="#563d7c">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        audio {
+            width: 250px;
+        }
+        
+        .audio-demo-table {
+            margin: 30px auto;
+            max-width: 1400px;
+            table-layout: fixed;
+            width: 100%;
+        }
+        
+        .audio-demo-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
+            padding: 15px 10px;
+        }
+        
+        .audio-demo-table td {
+            text-align: center;
+            vertical-align: middle;
+            padding: 10px 5px;
+            min-width: 200px;
+            overflow: hidden;
+        }
+        
+        .audio-demo-table audio {
+            width: 180px;
+            max-width: 100%;
+            margin: 5px 0;
+            display: block;
+        }
+        
+        .song-name {
+            font-weight: bold;
+            color: #333;
+            font-size: 0.9em;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .audio-demo-table audio {
+                width: 160px;
+            }
+            .audio-demo-table td {
+                min-width: 180px;
+                padding: 8px 3px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .audio-demo-table audio {
+                width: 140px;
+            }
+            .audio-demo-table td {
+                min-width: 160px;
+                padding: 6px 2px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+
+<body bgcolor="#FFFFFF" link="#000000" vlink="#000000" alink="#000000">
+
+    <div class="text-center">
+        <br>
+        <!-- Title -->
+        <div class="text-wrap" width="200px">
+            <font face="helvetica , ariel, &#39;sans serif&#39;" size="6">
+                <br><b>Time-Shifted Token Scheduling for Symbolic Music Generation</b><br><br>
+            </font>
+        </div>
+
+        <!-- Author info -->
+        <p style="font-size: 1.3em; margin-bottom: 0;">
+            Ting-Kang Wang, Chih-Pin Tan and Yi-Hsuan Yang
+        </p>
+        <p style="margin-top: 0;">
+            Graduate Institute of Communication Engineering, National Taiwan University, Taiwan<br>
+        </p>
+        <p style="margin-top: 0;">
+            tingkangwang415@gmail.com<br>
+        </p>
+
+        <!-- Click buttons -->
+        <!-- <div class="m-5">
+            <a class="btn btn-outline-dark" href="https://arxiv.org/abs/2311.07069" type="button"><i
+                    class="bi bi-newspaper"></i> Paper</a>
+            <a class="btn btn-outline-dark" href="https://youtu.be/QVr-S-DyccU" type="button"> <i
+                    class="bi bi-camera-reels"></i> Video</a>
+        </div> -->
+        <!-- Audio Demo Table -->
+        <div class="container mt-5">
+            <h3 class="mb-4" style="text-align: left;">Audio DEMO</h3>
+            <p class="mb-4" style="text-align: left;">Generation Results of 2-bar Continuqtion Task (Orchestra)</p>
+            <table class="table table-bordered audio-demo-table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Song Name</th>
+                        <th scope="col">Prompt</th>
+                        <th scope="col">MMT</th>
+                        <th scope="col">MMT-DP</th>
+                        <th scope="col">NMT</th>
+                        <th scope="col">Remi+</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><div class="song-name">Bach Cantata 5 BWV 5-5</div></td>
+                        <td>
+                            <audio controls>
+                                <source src="task_1_selected/classical-bach-cantata-5-bwv-5-5-(c)icking-archive_prompt.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="task_1_selected/classical-bach-cantata-5-bwv-5-5-(c)icking-archive_mmt.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="task_1_selected/classical-bach-cantata-5-bwv-5-5-(c)icking-archive_mmtdelay.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="task_1_selected/classical-bach-cantata-5-bwv-5-5-(c)icking-archive_nmt.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="task_1_selected/classical-bach-cantata-5-bwv-5-5-(c)icking-archive_remiplus.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><div class="song-name">Dvorak Symphony 9-2</div></td>
+                        <td>
+                            <audio controls>
+                                <source src="task_1_selected/classical-dvorak-symphony-9-2-(c)cvikl_prompt.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="task_1_selected/classical-dvorak-symphony-9-2-(c)cvikl_mmt.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="task_1_selected/classical-dvorak-symphony-9-2-(c)cvikl_mmtdelay.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="task_1_selected/classical-dvorak-symphony-9-2-(c)cvikl_nmt.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="task_1_selected/classical-dvorak-symphony-9-2-(c)cvikl_remiplus.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><div class="song-name">Mussorgsky Pictures Exhibition 6</div></td>
+                        <td>
+                            <audio controls>
+                                <source src="task_1_selected/classical-mussorgskij-pictures-et-exhibition-6-(c)galimberti_prompt.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="task_1_selected/classical-mussorgskij-pictures-et-exhibition-6-(c)galimberti_mmt.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="task_1_selected/classical-mussorgskij-pictures-et-exhibition-6-(c)galimberti_mmtdelay.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="task_1_selected/classical-mussorgskij-pictures-et-exhibition-6-(c)galimberti_nmt.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="task_1_selected/classical-mussorgskij-pictures-et-exhibition-6-(c)galimberti_remiplus.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+
+
+    <script>
+        // Add JavaScript to toggle the collapsible content
+        var buttons = document.querySelectorAll(".collapsible-button");
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        });
+
+        const audioElements = document.querySelectorAll('audio');
+
+        // 為每個 audio 元素添加播放事件監聽器
+        audioElements.forEach(audio => {
+            audio.addEventListener('play', () => {
+                // 當某個音檔開始播放時，暫停其他所有音檔
+                audioElements.forEach(otherAudio => {
+                    if (otherAudio !== audio && !otherAudio.paused) {
+                        otherAudio.pause();
+                        // 可選：otherAudio.currentTime = 0; // 重置其他音檔到開頭
+                    }
+                });
+            });
+        });
+        
+
+    </script>
+
+</body>
+
+</html>
